@@ -17,26 +17,38 @@ import java.util.regex.Pattern;
         urlPatterns = {"/LoginServlet"},
         initParams ={
                 @WebInitParam(name="user-id",value = "Madhu"),
-                @WebInitParam(name="password", value= "123456")
+                @WebInitParam(name="password", value= "M@dhu123")
         }
         )
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String USER_NAME_PATTERN = "^[A-Z]{1}[a-z]{2,}";
+        String PASSWORD_PATTERN = "((?=.*\\d)(?=.*[A-Z])(?=.*[^a-zA-Z0-9]{1}).{8,})";
+
         String user = req.getParameter("user");
         String pwd = req.getParameter("pwd");
 
         String userId  = getServletConfig().getInitParameter("user-id");
         String password = getServletConfig().getInitParameter("password");
 
-        Pattern pattern = Pattern.compile("^[A-Z]{1}[a-z]{2,}");
-        Matcher matcher = pattern.matcher(user);
-        boolean isNameValid = matcher.matches();
+        Pattern namePattern = Pattern.compile(USER_NAME_PATTERN);
+        Matcher nameMatcher = namePattern.matcher(user);
+        boolean isNameValid = nameMatcher.matches();
+
+        Pattern pwdPattern = Pattern.compile(PASSWORD_PATTERN);
+        Matcher pwdMatcher = pwdPattern.matcher(pwd);
+        boolean isPwdValid = pwdMatcher.matches();
 
         if(!isNameValid){
             RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/login.html");
             PrintWriter out = resp.getWriter();
             out.println("<font color=red>Enter valid user name(Starts with Capital letter & has minimum 3 characters.).</font>");
+            requestDispatcher.include(req,resp);
+        } else if (!isPwdValid) {
+            RequestDispatcher requestDispatcher = getServletContext().getRequestDispatcher("/login.html");
+            PrintWriter out = resp.getWriter();
+            out.println("<font color=red>Enter valid password.</font>");
             requestDispatcher.include(req,resp);
         } else if (userId.equals(user) && password.equals(pwd)) {
             req.setAttribute("user",user);
