@@ -5,12 +5,12 @@
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
   
-  <servlet>
-    <servlet-name>FirstServlet</servlet-name>
-    <servlet-class>com.bridgelabz.FirstServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>FirstServlet</servlet-name>
-    <url-pattern>/first</url-pattern>
-  </servlet-mapping>
+<!--  <servlet>-->
+<!--    <servlet-name>FirstServlet</servlet-name>-->
+<!--    <servlet-class>com.bridgelabz.FirstServlet</servlet-class>-->
+<!--  </servlet>-->
+<!--  <servlet-mapping>-->
+<!--    <servlet-name>FirstServlet</servlet-name>-->
+<!--    <url-pattern>/first</url-pattern>-->
+<!--  </servlet-mapping>-->
 </web-app>
